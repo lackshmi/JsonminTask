@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Generation</title>
+    <style>
+        .html-generation {
+            border: 1px solid #363636;
+            width: 600px;
+            padding: 24px 24px 40px;
+            margin: 24px;
+        }
+        
+        .content {
+            width: 500px;
+            flex-direction: column;
+            display: flex;
+        }
+        
+        .input-json,
+        .output-html {
+            height: 200px;
+        }
+        
+        .input-json label,
+        .output-html label {
+            border: 1px solid #363636;
+            outline: 0px;
+            padding: 8px 8px;
+            display: inline-block;
+            border-bottom: 0px;
+        }
+        
+        .input-json textarea,
+        .output-html textarea {
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box;
+            border-radius: 0px;
+            border: 1px solid;
+        }
+        
+        .generate-btn {
+            padding: 14px 0px 24px;
+            text-align: end;
+        }
+        
+        .generate-btn button {
+            padding: 8px 15px;
+            width: 126px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="html-generation">
+        <form action="" id="form-design">
+            <div class="content">
+                <div class="input-json">
+                    <label for="input-json">Input JSON</label>
+                    <textarea id="input-json" name="w3review">
+                    </textarea>
+                </div>
+                <div class="generate-btn">
+                    <button id="generate" type="button">Generate</button>
+                </div>
+                <div class="output-html">
+                    <label for="output-html">Output HTML</label>
+                    <textarea id="output-html" name="w3review">
+                    </textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        const buttonElement = document.getElementById('generate');
+        buttonElement.addEventListener('click', function() {
+            var test = document.getElementById("input-json").value;
+            try {
+                var te = JSON.parse(test);
+                gernerateHtml(te);
+            } catch (e) {
+                alert('Please Enter only JSON Objects');
+            }
+        });
+
+        function gernerateHtml(jsondata) {
+            var outputdata = '';
+            jsondata.forEach(element => {
+                outputdata = outputdata + `<div class='root' data-id='` + element.id + `'>
+    <span class="username">` + element.username + `</span>
+    <span class="video_name">` + element.video_name + `</span>
+    <span class="additional_details">
+        <span class="type">` + element.action + `</span>
+    </span>
+</div>`;
+            });
+            document.getElementById("output-html").value = outputdata;
+        }
+    </script>
+</body>
+
+</html>
